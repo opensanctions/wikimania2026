@@ -38,7 +38,9 @@
         <!-- ============ LIVE POLLS (Ada) ============ -->
         <!-- The deck is the presenter: a slide with data-poll="<id>" tells
              the audience's phones (poll.html) which question to show.
-             Question config shared with poll.html lives in polls.js. -->
+             Question config shared with poll.html lives in polls.js; the
+             poll slides' headings are stamped from there by the script
+             below, so their <h2>s stay empty in the markup. -->
 
         <section class="poll-intro">
           <div class="poll-layout">
@@ -68,7 +70,7 @@
         <section class="poll-slide" data-poll="count">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>How many politicians are there in the world?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -92,7 +94,7 @@
         <section class="poll-slide" data-poll="president">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>Is the President of Uganda a politician?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -105,7 +107,7 @@
         <section class="poll-slide" data-poll="mayor">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>Is a village mayor a politician?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -118,7 +120,7 @@
         <section class="poll-slide" data-poll="candidate">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>Is a losing presidential candidate a politician?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -131,7 +133,7 @@
         <section class="poll-slide" data-poll="judge">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>Is a Supreme Court judge a politician?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -145,7 +147,7 @@
         <section class="poll-slide" data-poll="first-lady">
           <div class="poll-layout">
             <div class="poll-main">
-              <h2>Is the First Lady a politician?</h2>
+              <h2></h2>
               <div class="poll-bars"></div>
               <p class="poll-total"><strong>0</strong> votes</p>
             </div>
@@ -339,7 +341,20 @@
        * (poll.html); incoming votes are tallied here and drawn as bars on
        * the poll slides. Broker, topic and question config are shared with
        * the audience page via polls.js.
+       *
+       * Presenter mode requires the key (?key=…, remembered in
+       * sessionStorage): only keyed decks publish control messages, so
+       * copies of the deck opened from the shared slides link can never
+       * fight the speaker for control. Presenters can add &reset to
+       * retract all stored votes (e.g. after rehearsing).
        */
+      const urlParams = new URL(location.href).searchParams;
+      if (urlParams.get("key")) {
+        sessionStorage.setItem("poll-presenter-key", urlParams.get("key"));
+      }
+      const isPresenter =
+        sessionStorage.getItem("poll-presenter-key") === PRESENTER_KEY;
+      const resetVotes = isPresenter && urlParams.has("reset");
       const votes = {}; // qid -> Map(clientId -> optionKey)
       const pollClient = mqtt.connect(BROKER_URL, {
         reconnectPeriod: 2000,
@@ -355,7 +370,12 @@
       pollClient.on("offline", () => setPollStatus(false));
       pollClient.on("error", () => setPollStatus(false));
 
-      pollClient.on("message", (topic, payload) => {
+      pollClient.on("message", (topic, payload, packet) => {
+        // ?reset: retract each stored vote as the broker delivers it.
+        if (resetVotes && packet.retain) {
+          pollClient.publish(topic, "", { retain: true });
+          return;
+        }
         // vote topic: <prefix>/vote/<qid>/<clientId>
         const parts = topic.split("/");
         const qid = parts[parts.length - 2];
@@ -375,7 +395,7 @@
 
       function syncActivePoll() {
         const qid = currentPollId();
-        if (qid) {
+        if (isPresenter && qid) {
           pollClient.publish(TOPIC_PREFIX + "/control", qid, { retain: true });
         }
       }
@@ -384,11 +404,14 @@
       Reveal.on("slidechanged", syncActivePoll);
 
       function setPollStatus(online) {
+        const state = online
+          ? isPresenter
+            ? "connected · presenter"
+            : "connected"
+          : "reconnecting…";
         document.querySelectorAll(".poll-status").forEach((el) => {
           el.querySelector(".dot").classList.toggle("on", online);
-          el.querySelector(".state").textContent = online
-            ? "connected"
-            : "reconnecting…";
+          el.querySelector(".state").textContent = state;
         });
       }
 
@@ -419,6 +442,13 @@
         });
       }
 
+      // Question text lives only in polls.js — stamp each poll slide's
+      // heading from POLLS so deck and audience page can never drift.
+      document.querySelectorAll(".poll-slide").forEach((slide) => {
+        const poll = pollById(slide.dataset.poll);
+        if (poll) slide.querySelector("h2").textContent = poll.q;
+      });
+
       // Every poll slide gets a small QR column so late joiners can catch
       // up. Built once here instead of repeated in the markup; the intro
       // slide carries its own, bigger version.
@@ -433,10 +463,10 @@
         .forEach((layout) => layout.appendChild(qrBlock.cloneNode(true)));
 
       // Fill every .qr placeholder with a QR code for the audience page.
-      const audienceUrl = new URL("poll.html", location.href).href;
+      const audienceUrl = new URL("poll.html", location.href);
       try {
         const qr = qrcode(0, "M");
-        qr.addData(audienceUrl);
+        qr.addData(audienceUrl.href);
         qr.make();
         const svg = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
         document
@@ -447,9 +477,16 @@
           .querySelectorAll(".poll-qr .qr")
           .forEach((el) => (el.textContent = "QR unavailable — share the URL"));
       }
-      document
-        .querySelectorAll(".poll-url")
-        .forEach((el) => (el.textContent = audienceUrl));
+      // The URL is a real link: people following along on a computer open
+      // the poll in a new tab and keep the slides alongside it.
+      document.querySelectorAll(".poll-url").forEach((el) => {
+        const a = document.createElement("a");
+        a.href = audienceUrl.href;
+        a.textContent = audienceUrl.href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        el.appendChild(a);
+      });
 
       renderPolls(); // draw the empty bars before the first vote arrives
     </script>

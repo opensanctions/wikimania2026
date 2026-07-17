@@ -12,8 +12,10 @@
   presentation lives in polls.js.
 
   How it works:
+  - This URL never changes, so it can be clicked straight from the slides.
   - The speaker moves to a poll slide → a retained "control" message
-    tells every audience page which question to show.
+    tells every audience page which question to show. Only the speaker's
+    deck (opened with the presenter key) can publish it.
   - Tap an option → retained message on <prefix>/vote/<question>/<clientId>.
     One device = one vote (latest tap wins).
 -->

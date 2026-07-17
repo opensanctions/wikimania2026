@@ -8,6 +8,12 @@
  *               (data-poll="<id>") is shown.
  *   poll.html   The audience page. Shows the active question, casts votes.
  *
+ * The channel is stable, so the audience link never changes and can be
+ * clicked straight from the slides. Only decks opened with the presenter
+ * key publish control messages — the key gates publishing, not reading,
+ * and is an accident guard, not a security boundary (the broker and this
+ * file are public anyway).
+ *
  * Votes travel as retained MQTT messages through a free public broker:
  *   <prefix>/control               retained id of the active question
  *   <prefix>/vote/<qid>/<clientId> retained latest vote per device
@@ -20,6 +26,11 @@ const BROKER_URL = "wss://broker.emqx.io:8084/mqtt";
 
 // Random suffix = our own little namespace on the shared public broker.
 const TOPIC_PREFIX = "wikimania2026/ep-poll/k7x2q9";
+
+// The speaker opens index.html?key=<this>. Only keyed decks publish
+// control messages; the shared slides link has no key, so followers'
+// tabs can never take over the audience page by accident.
+const PRESENTER_KEY = "h6t9x2q8";
 
 const YES_NO_UNSURE = [
   ["yes", "Yes"],
