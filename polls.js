@@ -44,10 +44,9 @@ const POLLS = [
     id: "count",
     q: "How many politicians are there in the world?",
     options: [
-      ["100k", "100,000"],
-      ["1m", "1 million"],
-      ["10m", "10 million"],
-      ["unknown", "Nobody knows"],
+      ["100k", "~100,000"],
+      ["1m", "~1 million"],
+      ["10m", "~10 million"],
     ],
   },
   // The definition problem: the same question, harder and harder to answer.

@@ -73,14 +73,6 @@
     position: relative;
 }
 
-.reveal .title-slide .kicker {
-    font-size: 1em;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.75;
-}
-
 .reveal .title-slide h1 {
     font-weight: 900;
 }
