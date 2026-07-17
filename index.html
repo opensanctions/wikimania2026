@@ -40,22 +40,41 @@
              the audience's phones (poll.html) which question to show.
              Question config shared with poll.html lives in polls.js. -->
 
-        <section class="poll-slide poll-join" data-poll="count">
-          <p class="kicker">Live poll — scan to vote</p>
-          <h2>How many politicians are there in the world?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-url"></p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+        <section class="poll-intro">
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Get your phones out</h2>
+              <p>
+                We're starting with a few quick votes. No app, no login —
+                just scan and tap.
+              </p>
+              <p class="poll-url"></p>
+              <p class="poll-status">
+                <span class="dot"></span><span class="state">connecting…</span>
+              </p>
+            </div>
+            <div class="poll-qr">
+              <div class="qr"></div>
+              <p class="poll-caption">Scan to vote</p>
+            </div>
           </div>
           <aside class="notes">
-            Ada, ~4 min for the whole poll block. Trick question — every
-            numeric guess is wrong. Give people time to scan the QR.
+            Ada, 1 min. Give everyone time to scan — phones show "waiting…"
+            until we advance to the first question. ~4 min for the whole
+            poll block.
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="count">
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>How many politicians are there in the world?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
+          </div>
+          <aside class="notes">
+            Trick question — every numeric guess is wrong.
           </aside>
         </section>
 
@@ -71,16 +90,12 @@
         </section>
 
         <section class="poll-slide" data-poll="president">
-          <p class="kicker">Live poll — who counts as a politician?</p>
-          <h2>Is the President of Uganda a politician?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Is the President of Uganda a politician?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
           </div>
           <aside class="notes">
             Warm-up — expect near-unanimous yes. Also proves the phones work.
@@ -88,16 +103,12 @@
         </section>
 
         <section class="poll-slide" data-poll="mayor">
-          <p class="kicker">Live poll — who counts as a politician?</p>
-          <h2>Is a village mayor a politician?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Is a village mayor a politician?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
           </div>
           <aside class="notes">
             Elected, sure — but a village of 300 people. Is there a floor?
@@ -105,16 +116,12 @@
         </section>
 
         <section class="poll-slide" data-poll="candidate">
-          <p class="kicker">Live poll — who counts as a politician?</p>
-          <h2>Is a losing presidential candidate a politician?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Is a losing presidential candidate a politician?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
           </div>
           <aside class="notes">
             Never held office. Office-holders only, or everyone in politics?
@@ -122,16 +129,12 @@
         </section>
 
         <section class="poll-slide" data-poll="judge">
-          <p class="kicker">Live poll — who counts as a politician?</p>
-          <h2>Is a Supreme Court judge a politician?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Is a Supreme Court judge a politician?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
           </div>
           <aside class="notes">
             Unelected, but politically appointed and powerful. PEP and
@@ -140,16 +143,12 @@
         </section>
 
         <section class="poll-slide" data-poll="first-lady">
-          <p class="kicker">Live poll — who counts as a politician?</p>
-          <h2>Is the First Lady a politician?</h2>
-          <div class="poll-bars"></div>
-          <p class="poll-total"><strong>0</strong> votes</p>
-          <div class="poll-qr">
-            <div class="qr"></div>
-            <p class="poll-caption">Scan to vote</p>
-            <p class="poll-status">
-              <span class="dot"></span><span class="state">connecting…</span>
-            </p>
+          <div class="poll-layout">
+            <div class="poll-main">
+              <h2>Is the First Lady a politician?</h2>
+              <div class="poll-bars"></div>
+              <p class="poll-total"><strong>0</strong> votes</p>
+            </div>
           </div>
           <aside class="notes">
             No office, no election — real power. Anti-money-laundering rules
@@ -420,7 +419,20 @@
         });
       }
 
-      // QR code pointing at the audience page, on every poll slide.
+      // Every poll slide gets a small QR column so late joiners can catch
+      // up. Built once here instead of repeated in the markup; the intro
+      // slide carries its own, bigger version.
+      const qrBlock = document.createElement("div");
+      qrBlock.className = "poll-qr";
+      qrBlock.innerHTML =
+        `<div class="qr"></div>` +
+        `<p class="poll-caption">Scan to vote</p>` +
+        `<p class="poll-status"><span class="dot"></span><span class="state">connecting…</span></p>`;
+      document
+        .querySelectorAll(".poll-slide .poll-layout")
+        .forEach((layout) => layout.appendChild(qrBlock.cloneNode(true)));
+
+      // Fill every .qr placeholder with a QR code for the audience page.
       const audienceUrl = new URL("poll.html", location.href).href;
       try {
         const qr = qrcode(0, "M");

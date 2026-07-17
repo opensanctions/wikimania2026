@@ -87,39 +87,39 @@
 
 /* ---------- live poll slides ---------- */
 
-.reveal .poll-slide .kicker {
-    font-size: 0.7em;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin: 0;
+/* Two-column layout: question and bars left, QR right — all in normal
+   flow, so the QR can never overlap the content. */
+.reveal .poll-layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5em;
+    align-items: start;
 }
 
-.reveal .poll-slide h2 {
+.reveal .poll-layout h2 {
     font-size: 1.5em;
-    margin-top: 0.25em;
+    margin-top: 0;
 }
 
 .reveal .poll-bars {
-    margin-top: 0.8em;
+    display: grid;
+    gap: 0.35em;
+    margin-top: 1em;
 }
 
 .reveal .bar-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 30% 1fr 2.2em;
     align-items: center;
     gap: 0.6em;
-    margin: 0.3em 0;
     font-size: 0.7em;
 }
 
 .reveal .bar-label {
-    width: 32%;
     font-weight: 600;
 }
 
 .reveal .bar-track {
-    flex: 1;
     background: #eee;
     border-radius: 0.3em;
     height: 1.4em;
@@ -135,7 +135,6 @@
 }
 
 .reveal .bar-count {
-    width: 2em;
     text-align: right;
     font-weight: 800;
     color: var(--ep-primary);
@@ -144,21 +143,21 @@
 .reveal .poll-total {
     font-size: 0.6em;
     opacity: 0.7;
-    margin: 0.5em 0 0;
+    margin: 0.6em 0 0;
 }
 
-/* QR block in the top-right corner; big on the first poll slide, where
-   people need to grab the URL, small on the rest for late joiners */
 .reveal .poll-qr {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 140px;
+    width: 130px;
     text-align: center;
 }
 
-.reveal .poll-join .poll-qr {
-    width: 230px;
+/* The intro slide is where everyone joins: big code, big URL */
+.reveal .poll-intro .poll-qr {
+    width: 280px;
+}
+
+.reveal .poll-intro .poll-url {
+    font-size: 0.7em;
 }
 
 .reveal .poll-qr .qr svg {
