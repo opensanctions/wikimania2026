@@ -1,0 +1,40 @@
+/* EveryPolitician-branded reveal.js theme — basics only */
+
+@font-face {
+    font-family: 'Mona Sans';
+    src: url('fonts/Mona-Sans.woff2') format('woff2');
+    font-weight: 200 900;
+    font-display: swap;
+}
+
+:root {
+    --ep-primary: #004eeb;
+    --ep-accent: #0040c1;
+    --ep-cta: #ffb020;
+    --ep-text: #171717;
+
+    --r-background-color: #fff;
+    --r-main-font: 'Mona Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --r-main-color: var(--ep-text);
+    --r-heading-font: var(--r-main-font);
+    --r-heading-color: var(--ep-primary);
+    --r-heading-font-weight: 700;
+    --r-heading-line-height: 1.2;
+    --r-heading-text-transform: none;
+    --r-link-color: var(--ep-primary);
+}
+
+/* White text on accent-colored slides */
+.reveal section.on-accent,
+.reveal section.on-accent h1,
+.reveal section.on-accent h2,
+.reveal section.on-accent h3,
+.reveal section.on-accent p,
+.reveal section.on-accent li {
+    color: #fff;
+}
+
+.reveal section.on-accent a {
+    color: #fff;
+    text-decoration: underline;
+}
