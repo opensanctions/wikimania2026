@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Live poll — Wikimania 2026</title>
+<!--
+  Ridiculously simple live poll. No server, no database, no accounts.
+  Audience and presenter both open this static page; votes travel through a
+  free public MQTT broker over secure WebSockets.
+
+  How it works:
+  - Audience taps an option → retained message on <prefix>/vote/<question>/<clientId>
+  - Presenter view (?presenter) subscribes to <prefix>/vote/# and counts.
+    Because votes are retained per client, a presenter tab that opens late
+    still receives every vote. One device = one vote (latest tap wins).
+  - Presenter presses 1–9 to switch the active question; a retained
+    "control" message tells every audience page which question to show.
+
+  Before the talk:
+  1. Open poll.html?presenter in a tab and keep it open (counts live only
+     in that tab's memory — closing it resets the tally display).
+  2. The presenter view shows a QR code; the audience scans it to vote.
+-->
+<script src="https://cdn.jsdelivr.net/npm/mqtt@5/dist/mqtt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+  @font-face {
+    font-family: "Mona Sans";
+    src: url("fonts/Mona-Sans.woff2") format("woff2");
+    font-weight: 200 900;
+    font-display: swap;
+  }
+  :root {
+    --primary: #004eeb;
+    --accent: #0040c1;
+    --cta: #ffb020;
+    --text: #171717;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Mona Sans", system-ui, sans-serif;
+    color: var(--text);
+    background: #fff;
+    min-height: 100vh;
+  }
+  main { max-width: 40rem; margin: 0 auto; padding: 1.5rem; }
+  .kicker {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    font-size: 0.85rem;
+  }
+  h1 { color: var(--primary); font-weight: 800; line-height: 1.15; margin: 0.3em 0 0.8em; }
+
+  /* ---------- audience ---------- */
+  .option {
+    display: block;
+    width: 100%;
+    margin: 0.6rem 0;
+    padding: 1.1rem 1.2rem;
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--primary);
+    background: #fff;
+    border: 3px solid var(--primary);
+    border-radius: 0.6rem;
+    cursor: pointer;
+  }
+  .option:active { transform: scale(0.99); }
+  .option.mine { background: var(--cta); border-color: var(--cta); color: var(--text); }
+  .status { opacity: 0.55; font-size: 0.9rem; }
+  .dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%;
+         background: #999; margin-right: 0.4em; }
+  .dot.on { background: #1a9e4b; }
+
+  /* ---------- presenter ---------- */
+  #presenter { max-width: 64rem; }
+  #presenter header { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1rem; }
+  #qr svg { width: 9rem; height: 9rem; display: block; }
+  #poll-url { font-weight: 600; word-break: break-all; }
+  .bar-row { display: flex; align-items: center; gap: 0.8rem; margin: 0.5rem 0; font-size: 1.3rem; }
+  .bar-label { width: 30%; font-weight: 600; }
+  .bar-track { flex: 1; background: #eee; border-radius: 0.4rem; height: 2.6rem; overflow: hidden; }
+  .bar-fill { background: var(--primary); height: 100%; width: 0;
+              transition: width 0.25s ease; border-radius: 0.4rem; }
+  .bar-count { width: 3.5rem; text-align: right; font-weight: 800; color: var(--primary); }
+  #tabs { margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  #tabs button {
+    font: inherit; font-size: 0.9rem; padding: 0.35rem 0.8rem; cursor: pointer;
+    border: 2px solid var(--primary); border-radius: 2rem; background: #fff; color: var(--primary);
+  }
+  #tabs button.active { background: var(--primary); color: #fff; }
+  #presenter footer { margin-top: 1.2rem; opacity: 0.55; font-size: 0.9rem; }
+  #presenter a { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<main id="audience" hidden>
+  <p class="kicker">Live poll</p>
+  <h1 id="q">Waiting for the presenter to start the poll…</h1>
+  <div id="options"></div>
+  <p class="status"><span class="dot" id="aud-dot"></span><span id="aud-status">connecting…</span></p>
+</main>
+
+<main id="presenter" hidden>
+  <header>
+    <div id="qr"></div>
+    <div>
+      <p class="kicker">Scan to vote</p>
+      <p id="poll-url"></p>
+      <p class="status"><span class="dot" id="pre-dot"></span><span id="pre-status">connecting…</span></p>
+    </div>
+  </header>
+  <h1 id="pq">Press 1–9 to start a question</h1>
+  <div id="bars"></div>
+  <p><strong><span id="total">0</span> votes</strong></p>
+  <nav id="tabs"></nav>
+  <footer>
+    Keys 1–9 switch question · <a href="#" id="reset">reset current question</a><br />
+    Counts live in this tab only — keep it open during the talk.
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+/* ============================ configuration ============================ */
+
+// EMQ's free public broker (official EMQX showcase, documented WSS
+// endpoint, public status dashboard). No fallback logic — if it's ever
+// down on the day, the fix is to change this one line and redeploy.
+const BROKER_URL = "wss://broker.emqx.io:8084/mqtt";
+
+// Random suffix = our own little namespace on the shared public broker.
+const TOPIC_PREFIX = "wikimania2026/ep-poll/k7x2q9";
+
+const POLLS = [
+  {
+    id: "edited",
+    q: "Have you ever edited Wikidata?",
+    options: [["yes", "Yes, regularly"], ["few", "A few times"], ["never", "Never"]],
+  },
+  {
+    id: "chore",
+    q: "Verifying machine-extracted claims sounds…",
+    options: [["fun", "Satisfying"], ["chore", "A chore"], ["depends", "It depends"]],
+  },
+];
+
+/* ============================== plumbing =============================== */
+
+const params = new URLSearchParams(location.search);
+const isPresenter = params.has("presenter");
+
+const clientId =
+  localStorage.getItem("poll-client-id") ||
+  (() => {
+    const id = Math.random().toString(36).slice(2, 10);
+    localStorage.setItem("poll-client-id", id);
+    return id;
+  })();
+
+let myVotes = JSON.parse(localStorage.getItem("poll-votes") || "{}");
+let activeQid = null;
+const votes = {}; // presenter only: qid -> Map(clientId -> optionKey)
+
+document.getElementById(isPresenter ? "presenter" : "audience").hidden = false;
+
+const client = mqtt.connect(BROKER_URL, { reconnectPeriod: 2000, keepalive: 30 });
+
+client.on("connect", () => {
+  setStatus(true);
+  client.subscribe(TOPIC_PREFIX + "/control");
+  if (isPresenter) client.subscribe(TOPIC_PREFIX + "/vote/#");
+});
+client.on("reconnect", () => setStatus(false));
+client.on("offline", () => setStatus(false));
+client.on("error", () => setStatus(false));
+
+client.on("message", (topic, payload) => {
+  const msg = payload.toString();
+  if (topic === TOPIC_PREFIX + "/control") {
+    if (msg) setActive(msg);
+    return;
+  }
+  // vote topic: <prefix>/vote/<qid>/<clientId>
+  const parts = topic.split("/");
+  const qid = parts[parts.length - 2];
+  const cid = parts[parts.length - 1];
+  if (!votes[qid]) votes[qid] = new Map();
+  if (msg) votes[qid].set(cid, msg); // empty payload = retracted
+  else votes[qid].delete(cid);
+  renderPresenter();
+});
+
+function setStatus(online) {
+  for (const [dot, label] of [["aud-dot", "aud-status"], ["pre-dot", "pre-status"]]) {
+    const d = document.getElementById(dot);
+    const s = document.getElementById(label);
+    if (!d || !s) continue;
+    d.classList.toggle("on", online);
+    s.textContent = online ? "connected" : "reconnecting…";
+  }
+}
+
+function pollById(qid) {
+  return POLLS.find((p) => p.id === qid);
+}
+
+function setActive(qid) {
+  if (!pollById(qid) || qid === activeQid) return;
+  activeQid = qid;
+  renderAudience();
+  renderPresenter();
+}
+
+/* ============================== audience =============================== */
+
+function renderAudience() {
+  if (isPresenter) return;
+  const poll = pollById(activeQid);
+  if (!poll) return;
+  document.getElementById("q").textContent = poll.q;
+  const box = document.getElementById("options");
+  box.innerHTML = "";
+  for (const [key, label] of poll.options) {
+    const btn = document.createElement("button");
+    btn.className = "option" + (myVotes[poll.id] === key ? " mine" : "");
+    btn.textContent = label;
+    btn.onclick = () => castVote(poll.id, key);
+    box.appendChild(btn);
+  }
+}
+
+function castVote(qid, key) {
+  if (!client.connected) return;
+  client.publish(`${TOPIC_PREFIX}/vote/${qid}/${clientId}`, key, { retain: true });
+  myVotes[qid] = key;
+  localStorage.setItem("poll-votes", JSON.stringify(myVotes));
+  renderAudience();
+}
+
+/* ============================== presenter ============================== */
+
+function renderPresenter() {
+  if (!isPresenter) return;
+  const poll = pollById(activeQid);
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = "";
+  POLLS.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.textContent = `${i + 1} · ${p.q}`;
+    b.className = p.id === activeQid ? "active" : "";
+    b.onclick = () => activate(p.id);
+    tabs.appendChild(b);
+  });
+  if (!poll) return;
+
+  document.getElementById("pq").textContent = poll.q;
+  const tally = new Map(poll.options.map(([key]) => [key, 0]));
+  for (const v of (votes[poll.id] || new Map()).values()) {
+    if (tally.has(v)) tally.set(v, tally.get(v) + 1);
+  }
+  const total = [...tally.values()].reduce((a, b) => a + b, 0);
+  document.getElementById("total").textContent = total;
+
+  const bars = document.getElementById("bars");
+  bars.innerHTML = "";
+  for (const [key, label] of poll.options) {
+    const n = tally.get(key) || 0;
+    const pct = total ? Math.round((n / total) * 100) : 0;
+    const row = document.createElement("div");
+    row.className = "bar-row";
+    row.innerHTML =
+      `<span class="bar-label"></span>` +
+      `<div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>` +
+      `<span class="bar-count">${n}</span>`;
+    row.querySelector(".bar-label").textContent = label;
+    bars.appendChild(row);
+  }
+}
+
+function activate(qid) {
+  client.publish(TOPIC_PREFIX + "/control", qid, { retain: true });
+  setActive(qid);
+}
+
+if (isPresenter) {
+  // QR + URL for the audience view (this page, minus ?presenter).
+  const url = location.origin + location.pathname;
+  document.getElementById("poll-url").textContent = url;
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+  } catch (e) {
+    document.getElementById("qr").textContent = "QR unavailable — share the URL";
+  }
+
+  document.addEventListener("keydown", (e) => {
+    const i = parseInt(e.key, 10);
+    if (i >= 1 && i <= POLLS.length) activate(POLLS[i - 1].id);
+  });
+
+  document.getElementById("reset").onclick = (e) => {
+    e.preventDefault();
+    if (!activeQid) return;
+    for (const cid of (votes[activeQid] || new Map()).keys()) {
+      client.publish(`${TOPIC_PREFIX}/vote/${activeQid}/${cid}`, "", { retain: true });
+    }
+    votes[activeQid] = new Map();
+    renderPresenter();
+  };
+}
+</script>
+</body>
+</html>
