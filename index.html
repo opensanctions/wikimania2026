@@ -35,12 +35,137 @@
           <aside class="notes">1 min</aside>
         </section>
 
-        <section>
-          <h2>Every week, an election happens somewhere</h2>
-          <p>[Ada: opening story]</p>
+        <!-- ============ LIVE POLLS (Ada) ============ -->
+        <!-- The deck is the presenter: a slide with data-poll="<id>" tells
+             the audience's phones (poll.html) which question to show.
+             Question config shared with poll.html lives in polls.js. -->
+
+        <section class="poll-slide poll-join" data-poll="count">
+          <p class="kicker">Live poll — scan to vote</p>
+          <h2>How many politicians are there in the world?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-url"></p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
           <aside class="notes">
-            Ada, 3 min. Story hook — concrete, human. Not project knowledge,
-            storytelling.
+            Ada, ~4 min for the whole poll block. Trick question — every
+            numeric guess is wrong. Give people time to scan the QR.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Trick question: nobody knows.</h2>
+          <p>
+            There is no complete, up-to-date list of the world's politicians.
+            Not the UN's, not anyone's — yet.
+          </p>
+          <aside class="notes">
+            Land the joke. If “nobody knows” won, congratulate the skeptics.
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="president">
+          <p class="kicker">Live poll — who counts as a politician?</p>
+          <h2>Is the President of Uganda a politician?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
+          <aside class="notes">
+            Warm-up — expect near-unanimous yes. Also proves the phones work.
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="mayor">
+          <p class="kicker">Live poll — who counts as a politician?</p>
+          <h2>Is a village mayor a politician?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
+          <aside class="notes">
+            Elected, sure — but a village of 300 people. Is there a floor?
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="candidate">
+          <p class="kicker">Live poll — who counts as a politician?</p>
+          <h2>Is a losing presidential candidate a politician?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
+          <aside class="notes">
+            Never held office. Office-holders only, or everyone in politics?
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="judge">
+          <p class="kicker">Live poll — who counts as a politician?</p>
+          <h2>Is a Supreme Court judge a politician?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
+          <aside class="notes">
+            Unelected, but politically appointed and powerful. PEP and
+            sanctions lists already include judges.
+          </aside>
+        </section>
+
+        <section class="poll-slide" data-poll="first-lady">
+          <p class="kicker">Live poll — who counts as a politician?</p>
+          <h2>Is the First Lady a politician?</h2>
+          <div class="poll-bars"></div>
+          <p class="poll-total"><strong>0</strong> votes</p>
+          <div class="poll-qr">
+            <div class="qr"></div>
+            <p class="poll-caption">Scan to vote</p>
+            <p class="poll-status">
+              <span class="dot"></span><span class="state">connecting…</span>
+            </p>
+          </div>
+          <aside class="notes">
+            No office, no election — real power. Anti-money-laundering rules
+            count family members as PEPs.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Where do you draw the line?</h2>
+          <p>
+            Every definition we pick decides who ends up in the data — and who
+            gets watched, checked, and held accountable.
+          </p>
+          <aside class="notes">
+            The definition problem, stated. Segue: that's why this data
+            matters — and why it's hard.
           </aside>
         </section>
 
@@ -153,21 +278,6 @@
           </aside>
         </section>
 
-        <!-- ============ LIVE POLL ============ -->
-
-        <section data-background-color="#ffb020">
-          <h2>Quick poll</h2>
-          <p>
-            <a href="poll.html?presenter">Open the live poll</a> — the audience
-            scans the QR code there and votes from their phones.
-          </p>
-          <aside class="notes">
-            Open poll.html?presenter in a new tab and keep it open for the
-            whole talk — counts live only in that tab. Keys 1–9 switch
-            questions. Move this slide wherever a poll fits.
-          </aside>
-        </section>
-
         <!-- ============ PART 5: DISCUSSION (Ada) ============ -->
 
         <section>
@@ -214,12 +324,122 @@
         </section>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/mqtt@5/dist/mqtt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="polls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@6.0.1/dist/reveal.js"></script>
     <script>
       Reveal.initialize({
         hash: true,
         transition: "none",
       });
+
+      /*
+       * Live polls — this deck is the presenter. Moving to a slide with
+       * data-poll="<id>" publishes that question to the audience page
+       * (poll.html); incoming votes are tallied here and drawn as bars on
+       * the poll slides. Broker, topic and question config are shared with
+       * the audience page via polls.js.
+       */
+      const votes = {}; // qid -> Map(clientId -> optionKey)
+      const pollClient = mqtt.connect(BROKER_URL, {
+        reconnectPeriod: 2000,
+        keepalive: 30,
+      });
+
+      pollClient.on("connect", () => {
+        setPollStatus(true);
+        pollClient.subscribe(TOPIC_PREFIX + "/vote/#");
+        syncActivePoll(); // re-assert the active question after a reconnect
+      });
+      pollClient.on("reconnect", () => setPollStatus(false));
+      pollClient.on("offline", () => setPollStatus(false));
+      pollClient.on("error", () => setPollStatus(false));
+
+      pollClient.on("message", (topic, payload) => {
+        // vote topic: <prefix>/vote/<qid>/<clientId>
+        const parts = topic.split("/");
+        const qid = parts[parts.length - 2];
+        const cid = parts[parts.length - 1];
+        if (!pollById(qid)) return;
+        if (!votes[qid]) votes[qid] = new Map();
+        const msg = payload.toString();
+        if (msg) votes[qid].set(cid, msg); // empty payload = retracted
+        else votes[qid].delete(cid);
+        renderPolls();
+      });
+
+      function currentPollId() {
+        const slide = Reveal.getCurrentSlide && Reveal.getCurrentSlide();
+        return slide ? slide.dataset.poll : undefined;
+      }
+
+      function syncActivePoll() {
+        const qid = currentPollId();
+        if (qid) {
+          pollClient.publish(TOPIC_PREFIX + "/control", qid, { retain: true });
+        }
+      }
+
+      Reveal.on("ready", syncActivePoll);
+      Reveal.on("slidechanged", syncActivePoll);
+
+      function setPollStatus(online) {
+        document.querySelectorAll(".poll-status").forEach((el) => {
+          el.querySelector(".dot").classList.toggle("on", online);
+          el.querySelector(".state").textContent = online
+            ? "connected"
+            : "reconnecting…";
+        });
+      }
+
+      function renderPolls() {
+        document.querySelectorAll(".poll-slide").forEach((slide) => {
+          const poll = pollById(slide.dataset.poll);
+          if (!poll) return;
+          const tally = new Map(poll.options.map(([key]) => [key, 0]));
+          for (const v of (votes[poll.id] || new Map()).values()) {
+            if (tally.has(v)) tally.set(v, tally.get(v) + 1);
+          }
+          const total = [...tally.values()].reduce((a, b) => a + b, 0);
+          slide.querySelector(".poll-total strong").textContent = total;
+          const bars = slide.querySelector(".poll-bars");
+          bars.innerHTML = "";
+          for (const [key, label] of poll.options) {
+            const n = tally.get(key) || 0;
+            const pct = total ? Math.round((n / total) * 100) : 0;
+            const row = document.createElement("div");
+            row.className = "bar-row";
+            row.innerHTML =
+              `<span class="bar-label"></span>` +
+              `<div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>` +
+              `<span class="bar-count">${n}</span>`;
+            row.querySelector(".bar-label").textContent = label;
+            bars.appendChild(row);
+          }
+        });
+      }
+
+      // QR code pointing at the audience page, on every poll slide.
+      const audienceUrl = new URL("poll.html", location.href).href;
+      try {
+        const qr = qrcode(0, "M");
+        qr.addData(audienceUrl);
+        qr.make();
+        const svg = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+        document
+          .querySelectorAll(".poll-qr .qr")
+          .forEach((el) => (el.innerHTML = svg));
+      } catch (e) {
+        document
+          .querySelectorAll(".poll-qr .qr")
+          .forEach((el) => (el.textContent = "QR unavailable — share the URL"));
+      }
+      document
+        .querySelectorAll(".poll-url")
+        .forEach((el) => (el.textContent = audienceUrl));
+
+      renderPolls(); // draw the empty bars before the first vote arrives
     </script>
   </body>
 </html>

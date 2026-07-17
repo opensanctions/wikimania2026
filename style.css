@@ -84,3 +84,118 @@
 .reveal .title-slide h1 {
     font-weight: 900;
 }
+
+/* ---------- live poll slides ---------- */
+
+.reveal .poll-slide .kicker {
+    font-size: 0.7em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin: 0;
+}
+
+.reveal .poll-slide h2 {
+    font-size: 1.5em;
+    margin-top: 0.25em;
+}
+
+.reveal .poll-bars {
+    margin-top: 0.8em;
+}
+
+.reveal .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0.3em 0;
+    font-size: 0.7em;
+}
+
+.reveal .bar-label {
+    width: 32%;
+    font-weight: 600;
+}
+
+.reveal .bar-track {
+    flex: 1;
+    background: #eee;
+    border-radius: 0.3em;
+    height: 1.4em;
+    overflow: hidden;
+}
+
+.reveal .bar-fill {
+    background: var(--ep-primary);
+    height: 100%;
+    width: 0;
+    transition: width 0.25s ease;
+    border-radius: 0.3em;
+}
+
+.reveal .bar-count {
+    width: 2em;
+    text-align: right;
+    font-weight: 800;
+    color: var(--ep-primary);
+}
+
+.reveal .poll-total {
+    font-size: 0.6em;
+    opacity: 0.7;
+    margin: 0.5em 0 0;
+}
+
+/* QR block in the top-right corner; big on the first poll slide, where
+   people need to grab the URL, small on the rest for late joiners */
+.reveal .poll-qr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 140px;
+    text-align: center;
+}
+
+.reveal .poll-join .poll-qr {
+    width: 230px;
+}
+
+.reveal .poll-qr .qr svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+.reveal .poll-caption,
+.reveal .poll-url,
+.reveal .poll-status {
+    font-size: 0.45em;
+    margin: 0.3em 0 0;
+}
+
+.reveal .poll-url {
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.reveal .poll-status {
+    opacity: 0.55;
+}
+
+.reveal .poll-status .dot {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background: #999;
+    margin-right: 0.4em;
+}
+
+.reveal .poll-status .dot.on {
+    background: #1a9e4b;
+}
