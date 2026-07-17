@@ -38,3 +38,49 @@
     color: #fff;
     text-decoration: underline;
 }
+
+/* One consistent left edge; group with space, not alignment */
+.reveal .slides section {
+    text-align: left;
+}
+
+.reveal ul,
+.reveal ol {
+    display: block;
+    margin-left: 1.2em;
+}
+
+.reveal .byline {
+    margin-top: 2em;
+}
+
+/* Title slide: giant hemicycle watermark bleeding off the right edge */
+.reveal .title-slide .title-logo {
+    position: absolute;
+    top: 50%;
+    right: -18%;
+    transform: translateY(-50%);
+    width: 75%;
+    margin: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    opacity: 0.22;
+}
+
+/* Text paints above the watermark */
+.reveal .title-slide .title-content {
+    position: relative;
+}
+
+.reveal .title-slide .kicker {
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+}
+
+.reveal .title-slide h1 {
+    font-weight: 900;
+}
