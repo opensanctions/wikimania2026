@@ -190,3 +190,40 @@
 .reveal .poll-status .dot.on {
     background: #1a9e4b;
 }
+
+/* ---------- closing slide: speaker socials ---------- */
+
+/* Two side-by-side cards (stacks if the slide gets narrow), each with
+   the QR next to name + link. */
+.reveal .socials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1em;
+    margin-top: 1.2em;
+}
+
+.reveal .social {
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    align-items: center;
+    gap: 0.7em;
+}
+
+.reveal .social .qr svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+.reveal .social .social-text {
+    font-size: 0.55em;
+}
+
+.reveal .social .social-name {
+    font-weight: 700;
+    margin: 0 0 0.2em;
+}

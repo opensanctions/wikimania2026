@@ -354,8 +354,33 @@
                 >discuss.opensanctions.org</a
               >
             </li>
-            <li>[contact / socials]</li>
           </ul>
+          <div class="socials">
+            <div class="social">
+              <div class="qr" data-qr="https://www.linkedin.com/in/adahomolova/"></div>
+              <div class="social-text">
+                <p class="social-name">Ada Homolova</p>
+                <a
+                  href="https://www.linkedin.com/in/adahomolova/"
+                  target="_blank"
+                  rel="noopener"
+                  >linkedin.com/in/adahomolova</a
+                >
+              </div>
+            </div>
+            <div class="social">
+              <div class="qr" data-qr="https://www.linkedin.com/in/johanschuijt/"></div>
+              <div class="social-text">
+                <p class="social-name">Johan Schuijt</p>
+                <a
+                  href="https://www.linkedin.com/in/johanschuijt/"
+                  target="_blank"
+                  rel="noopener"
+                  >linkedin.com/in/johanschuijt</a
+                >
+              </div>
+            </div>
+          </div>
           <aside class="notes">
             2 min. Official guidance asks for contact/engagement slide with QR
             codes.
@@ -515,6 +540,24 @@
           .querySelectorAll(".poll-qr .qr")
           .forEach((el) => (el.textContent = "QR unavailable — share the URL"));
       }
+      // QRs for links on regular slides (the speaker socials on the
+      // closing slide): any .qr[data-qr] element gets a code for the URL
+      // in its data-qr attribute.
+      document.querySelectorAll(".qr[data-qr]").forEach((el) => {
+        try {
+          const qr = qrcode(0, "M");
+          qr.addData(el.dataset.qr);
+          qr.make();
+          el.innerHTML = qr.createSvgTag({
+            cellSize: 4,
+            margin: 0,
+            scalable: true,
+          });
+        } catch (e) {
+          el.textContent = "QR unavailable — share the URL";
+        }
+      });
+
       // The URL is a real link: people following along on a computer open
       // the poll in a new tab and keep the slides alongside it.
       document.querySelectorAll(".poll-url").forEach((el) => {
