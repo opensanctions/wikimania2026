@@ -32,10 +32,9 @@ const TOPIC_PREFIX = "wikimania2026/ep-poll/k7x2q9";
 // tabs can never take over the audience page by accident.
 const PRESENTER_KEY = "h6t9x2q8";
 
-const YES_NO_UNSURE = [
+const YES_NO = [
   ["yes", "Yes"],
   ["no", "No"],
-  ["unsure", "Not sure"],
 ];
 
 const POLLS = [
@@ -53,27 +52,27 @@ const POLLS = [
   {
     id: "president",
     q: "Is the President of Uganda a politician?",
-    options: YES_NO_UNSURE,
+    options: YES_NO,
   },
   {
     id: "mayor",
     q: "Is a village mayor a politician?",
-    options: YES_NO_UNSURE,
+    options: YES_NO,
   },
   {
     id: "candidate",
     q: "Is a losing presidential candidate a politician?",
-    options: YES_NO_UNSURE,
+    options: YES_NO,
   },
   {
     id: "judge",
     q: "Is a Supreme Court judge a politician?",
-    options: YES_NO_UNSURE,
+    options: YES_NO,
   },
   {
     id: "first-lady",
     q: "Is the First Lady a politician?",
-    options: YES_NO_UNSURE,
+    options: YES_NO,
   },
 ];
 
