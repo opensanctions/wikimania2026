@@ -20,6 +20,17 @@
   </head>
   <body>
     <div class="reveal">
+      <!-- Corner logo on every slide — lives outside .slides so it never
+           moves. The script swaps in the all-white variant on dark
+           (on-accent) slides. -->
+      <div class="slide-logo">
+        <img
+          class="logo-color"
+          src="images/logo-oneline-color.svg"
+          alt="EveryPolitician"
+        />
+        <img class="logo-white" src="images/logo-oneline-white.svg" alt="" />
+      </div>
       <div class="slides">
         <!-- ============ PART 1: FRAMING (Ada) ============ -->
 
@@ -465,6 +476,18 @@
 
       Reveal.on("ready", syncActivePoll);
       Reveal.on("slidechanged", syncActivePoll);
+
+      // Corner logo: the color wordmark's dark text is unreadable on the
+      // accent-colored slides — swap to the all-white variant there.
+      function syncSlideLogo() {
+        const slide = Reveal.getCurrentSlide && Reveal.getCurrentSlide();
+        const onDark = slide && slide.classList.contains("on-accent");
+        document
+          .querySelector(".reveal")
+          .classList.toggle("logo-on-dark", !!onDark);
+      }
+      Reveal.on("ready", syncSlideLogo);
+      Reveal.on("slidechanged", syncSlideLogo);
 
       function setPollStatus(online) {
         const state = online

@@ -54,6 +54,35 @@
     margin-top: 2em;
 }
 
+/* Corner logo on every slide (element sits outside .slides). Bottom-left:
+   bottom-right belongs to the navigation arrows. .logo-on-dark on .reveal
+   (toggled by the script) swaps in the all-white variant. */
+.reveal .slide-logo {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    width: 240px;
+    z-index: 30;
+}
+
+.reveal .slide-logo img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+.reveal .slide-logo .logo-white,
+.reveal.logo-on-dark .slide-logo .logo-color {
+    display: none;
+}
+
+.reveal.logo-on-dark .slide-logo .logo-white {
+    display: block;
+}
+
 /* Title slide: giant hemicycle watermark bleeding off the right edge */
 .reveal .title-slide .title-logo {
     position: absolute;
