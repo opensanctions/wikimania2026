@@ -70,8 +70,8 @@ const POLLS = [
     options: YES_NO,
   },
   {
-    id: "first-lady",
-    q: "Is the First Lady a politician?",
+    id: "spouse",
+    q: "Is a head of state's spouse a politician?",
     options: YES_NO,
   },
 ];
