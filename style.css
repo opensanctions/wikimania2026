@@ -106,6 +106,74 @@
     font-weight: 900;
 }
 
+/* A two-step fragment: the text appears with its parent fragment, then a
+   later "next" turns it bold. `custom` stops reveal from also fading it. */
+.reveal .fragment.custom.embolden.visible {
+    font-weight: 800;
+}
+
+/* Small source/citation line at the bottom of a content slide */
+.reveal .source-note {
+    font-size: 0.45em;
+    opacity: 0.6;
+    margin-top: 1.5em;
+}
+
+/* ---------- photo slides (story time) ---------- */
+
+/* A single portrait photo, centered, with the name under it and a small
+   author credit. The height cap keeps portrait images inside reveal's
+   960x700 slide box. */
+.reveal .photo-slide {
+    text-align: center;
+}
+
+.reveal .photo-slide img {
+    display: block;
+    max-height: 480px;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Big red X crossing out an image: the wrapper shrink-wraps the image and
+   the SVG stretches over it corner to corner. */
+.reveal .photo-slide .img-x {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.reveal .photo-slide .img-x img {
+    margin: 0;
+}
+
+.reveal .photo-slide .x-mark {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.reveal .photo-slide .x-mark line {
+    stroke: #e02020;
+    stroke-width: 14px;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.reveal .photo-slide .photo-name {
+    font-weight: 700;
+    margin: 0.4em 0 0;
+}
+
+.reveal .photo-slide .photo-credit {
+    font-size: 0.4em;
+    opacity: 0.6;
+    margin: 0.2em 0 0;
+}
+
 /* ---------- live poll slides ---------- */
 
 /* Two-column layout: question and bars left, QR right — all in normal
