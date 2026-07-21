@@ -56,12 +56,12 @@ const POLLS = [
   },
   {
     id: "mayor",
-    q: "Is a village mayor a politician?",
+    q: "Is the mayor of a small village a politician?",
     options: YES_NO,
   },
   {
-    id: "candidate",
-    q: "Is a losing presidential candidate a politician?",
+    id: "centralbanker",
+    q: "Is a central bank governor a politician?",
     options: YES_NO,
   },
   {
