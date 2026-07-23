@@ -83,6 +83,12 @@
     display: block;
 }
 
+/* Slides with class="no-logo" (e.g. full-bleed screenshots) hide the corner
+   logo entirely. */
+.reveal.logo-hidden .slide-logo {
+    display: none;
+}
+
 /* Title slide: giant hemicycle watermark bleeding off the right edge */
 .reveal .title-slide .title-logo {
     position: absolute;

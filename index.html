@@ -513,6 +513,11 @@
           <h2>PoliLoom</h2>
         </section>
 
+        <section
+          class="no-logo"
+          data-background-image="images/poliloom.png"
+        ></section>
+
         <section>
           <h2>Starting point: Wikidata</h2>
           <ul>
@@ -824,9 +829,13 @@
       function syncSlideLogo() {
         const slide = Reveal.getCurrentSlide && Reveal.getCurrentSlide();
         const onDark = slide && slide.classList.contains("on-accent");
+        const hidden = slide && slide.classList.contains("no-logo");
         document
           .querySelector(".reveal")
           .classList.toggle("logo-on-dark", !!onDark);
+        document
+          .querySelector(".reveal")
+          .classList.toggle("logo-hidden", !!hidden);
       }
       Reveal.on("ready", syncSlideLogo);
       Reveal.on("slidechanged", syncSlideLogo);
