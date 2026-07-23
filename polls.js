@@ -77,18 +77,18 @@ const POLLS = [
   // Closing polls, after the hands-on session.
   {
     id: "verify",
-    q: "Verifying claims: satisfying, or a chore?",
+    q: "Verifying claims felt…",
     options: [
       ["satisfying", "Satisfying"],
-      ["chore", "A chore"],
+      ["chore", "Like a chore"],
     ],
   },
   {
     id: "gamification",
-    q: "Gamification: motivating, or an incentive to approve carelessly?",
+    q: "Gamification would be…",
     options: [
       ["motivating", "Motivating"],
-      ["careless", "Careless approvals"],
+      ["careless", "An incentive to approve carelessly"],
     ],
   },
 ];
