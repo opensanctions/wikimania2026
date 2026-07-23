@@ -112,12 +112,6 @@
     font-weight: 900;
 }
 
-/* A two-step fragment: the text appears with its parent fragment, then a
-   later "next" turns it bold. `custom` stops reveal from also fading it. */
-.reveal .fragment.custom.embolden.visible {
-    font-weight: 800;
-}
-
 /* Small source/citation line at the bottom of a content slide */
 .reveal .source-note {
     font-size: 0.45em;
