@@ -74,6 +74,23 @@ const POLLS = [
     q: "Is a head of state's spouse a politician?",
     options: YES_NO,
   },
+  // Closing polls, after the hands-on session.
+  {
+    id: "verify",
+    q: "Verifying claims: satisfying, or a chore?",
+    options: [
+      ["satisfying", "Satisfying"],
+      ["chore", "A chore"],
+    ],
+  },
+  {
+    id: "gamification",
+    q: "Gamification: motivating, or an incentive to approve carelessly?",
+    options: [
+      ["motivating", "Motivating"],
+      ["careless", "Careless approvals"],
+    ],
+  },
 ];
 
 function pollById(qid) {
