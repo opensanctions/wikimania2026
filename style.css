@@ -294,6 +294,104 @@
     background: #1a9e4b;
 }
 
+/* ---------- how-it-works diagrams (inline SVG) ---------- */
+
+/* The PoliLoom explainer slides carry inline SVG diagrams instead of
+   bullet lists. Inline (not <img>) so they inherit Mona Sans and the
+   brand colors from the CSS variables above. */
+.reveal svg.diagram {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0.1em auto 0;
+}
+
+.reveal svg.diagram text {
+    font-family: var(--r-main-font);
+    fill: var(--ep-text);
+}
+
+/* boxes */
+.reveal svg.diagram .d-box {
+    fill: #fff;
+    stroke: #dfe5ec;
+    stroke-width: 1.5;
+}
+
+.reveal svg.diagram .d-box-blue {
+    fill: #f2f6ff;
+    stroke: #c9d8f8;
+    stroke-width: 1.5;
+}
+
+.reveal svg.diagram .d-box-green {
+    fill: #f2fbf5;
+    stroke: #1a9e4b;
+    stroke-width: 2;
+}
+
+.reveal svg.diagram .d-box-dash {
+    fill: #fff;
+    stroke: #aab2bd;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 5;
+}
+
+/* connectors */
+.reveal svg.diagram .d-flow,
+.reveal svg.diagram .d-flow-green,
+.reveal svg.diagram .d-flow-gray {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.reveal svg.diagram .d-flow {
+    stroke: var(--ep-primary);
+    stroke-width: 3;
+}
+
+.reveal svg.diagram .d-flow-green {
+    stroke: #1a9e4b;
+    stroke-width: 3;
+}
+
+.reveal svg.diagram .d-flow-gray {
+    stroke: #aab2bd;
+    stroke-width: 2.5;
+    stroke-dasharray: 7 6;
+}
+
+.reveal svg.diagram .d-stroke {
+    stroke: var(--ep-primary);
+}
+
+/* text roles */
+.reveal svg.diagram .d-h { font-size: 24px; font-weight: 700; }
+.reveal svg.diagram .d-t { font-size: 19px; }
+.reveal svg.diagram .d-t2 { font-size: 17.5px; }
+.reveal svg.diagram .d-s { font-size: 14.5px; opacity: 0.6; }
+.reveal svg.diagram .d-cap { font-size: 16.5px; opacity: 0.7; }
+.reveal svg.diagram .d-bold { font-weight: 700; }
+.reveal svg.diagram .d-q { font-size: 17.5px; font-style: italic; }
+.reveal svg.diagram .d-quote { font-style: italic; }
+.reveal svg.diagram .d-code { font-size: 13px; font-weight: 700; fill: #6b7280; }
+.reveal svg.diagram .d-tag { font-size: 14.5px; }
+.reveal svg.diagram .d-qid { font-size: 13.5px; font-weight: 600; fill: var(--ep-primary); }
+.reveal svg.diagram .d-src { font-size: 13px; fill: var(--ep-primary); }
+.reveal svg.diagram .d-btn { font-size: 16.5px; font-weight: 700; fill: #fff; }
+.reveal svg.diagram .d-lblgreen { font-size: 14px; font-weight: 700; fill: #1a9e4b; }
+.reveal svg.diagram .d-lblgray { font-size: 14px; font-weight: 700; fill: #8a939e; }
+
+/* colored shapes */
+.reveal svg.diagram .d-blue { fill: var(--ep-primary); }
+.reveal svg.diagram .d-cta { fill: var(--ep-cta); }
+.reveal svg.diagram .d-green { fill: #1a9e4b; }
+.reveal svg.diagram .d-red { fill: #e02020; }
+.reveal svg.diagram .d-hl { fill: #ffe58f; }   /* verbatim-quote highlight */
+.reveal svg.diagram .d-line { fill: #e4e9f0; }  /* fake text lines */
+.reveal svg.diagram .d-pill { fill: #eef1f5; }
+
 /* ---------- closing slide: speaker socials ---------- */
 
 /* Two side-by-side cards (stacks if the slide gets narrow), each with

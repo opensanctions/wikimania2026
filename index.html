@@ -520,53 +520,319 @@
 
         <section>
           <h2>Starting point: Wikidata</h2>
-          <ul>
-            <li class="fragment">
-              Import positions, locations &amp; countries, existing politicians
-            </li>
-            <li class="fragment">
-              Every position, location and country indexed for search, in many
-              languages
-            </li>
-          </ul>
+          <svg
+            class="diagram"
+            viewBox="0 0 940 460"
+            role="img"
+            aria-label="Diagram: positions, locations and countries, and existing politicians are imported from Wikidata into a search index where every entity is searchable in many languages"
+          >
+            <!-- source: Wikidata -->
+            <rect class="d-box" x="30" y="150" width="180" height="150" rx="12" />
+            <rect x="84" y="187" width="9" height="26" fill="#006699" />
+            <rect x="100" y="180" width="9" height="40" fill="#339966" />
+            <rect x="116" y="173" width="9" height="54" fill="#990000" />
+            <rect x="132" y="180" width="9" height="40" fill="#339966" />
+            <rect x="148" y="187" width="9" height="26" fill="#006699" />
+            <text class="d-h" x="120" y="272" text-anchor="middle">Wikidata</text>
+
+            <!-- import -->
+            <path class="d-flow" d="M212,225 H282" />
+            <path class="d-flow" d="M272,215 L286,225 L272,235" />
+
+            <!-- imported entities -->
+            <rect class="d-box" x="290" y="86" width="260" height="64" rx="12" />
+            <text class="d-t d-bold" x="308" y="116">Positions</text>
+            <text class="d-s" x="308" y="140">~170,000 imported</text>
+
+            <rect class="d-box" x="290" y="192" width="260" height="64" rx="12" />
+            <text class="d-t2 d-bold" x="308" y="222">Locations &amp; countries</text>
+            <text class="d-s" x="308" y="246">258 countries &amp; territories</text>
+
+            <rect class="d-box" x="290" y="298" width="260" height="64" rx="12" />
+            <text class="d-t d-bold" x="308" y="328">Politicians</text>
+            <text class="d-s" x="308" y="352">~710,000 existing</text>
+
+            <!-- merged into the index -->
+            <path
+              class="d-flow"
+              d="M550,118 H578 M550,224 H578 M550,330 H578 M578,118 V330"
+            />
+            <path class="d-flow" d="M578,224 H634" />
+            <path class="d-flow" d="M624,214 L638,224 L624,234" />
+
+            <!-- search index -->
+            <rect class="d-box-blue" x="640" y="110" width="270" height="240" rx="12" />
+            <text class="d-h" x="664" y="150">Search index</text>
+            <circle cx="876" cy="141" r="12" fill="none" class="d-stroke" stroke-width="3" />
+            <path class="d-stroke" stroke-width="4" stroke-linecap="round" d="M885,150 L896,161" />
+
+            <rect class="d-pill" x="664" y="181" width="36" height="21" rx="5" />
+            <text class="d-code" x="682" y="197" text-anchor="middle">EN</text>
+            <text class="d-t" x="712" y="197">Prime minister</text>
+
+            <rect class="d-pill" x="664" y="219" width="36" height="21" rx="5" />
+            <text class="d-code" x="682" y="235" text-anchor="middle">FR</text>
+            <text class="d-t" x="712" y="235">Premier ministre</text>
+
+            <rect class="d-pill" x="664" y="257" width="36" height="21" rx="5" />
+            <text class="d-code" x="682" y="273" text-anchor="middle">RU</text>
+            <text class="d-t" x="712" y="273">Премьер-министр</text>
+
+            <rect class="d-pill" x="664" y="295" width="36" height="21" rx="5" />
+            <text class="d-code" x="682" y="311" text-anchor="middle">JA</text>
+            <text class="d-t" x="712" y="311">首相</text>
+
+            <text class="d-cap" x="470" y="420" text-anchor="middle">Every position, location and country — searchable in many languages.</text>
+          </svg>
         </section>
 
         <section>
           <h2>Capture the web</h2>
-          <ul>
-            <li class="fragment">
-              Automatically fetch each politician's linked Wikipedia articles
-            </li>
-            <li class="fragment">Fetch user submitted sources</li>
-            <li class="fragment">Archive a full snapshot</li>
-          </ul>
+          <svg
+            class="diagram"
+            viewBox="0 0 940 460"
+            role="img"
+            aria-label="Diagram: for each politician, PoliLoom fetches their linked Wikipedia articles and user-submitted sources, and archives a full timestamped snapshot"
+          >
+            <!-- the politician -->
+            <rect class="d-box" x="30" y="165" width="200" height="150" rx="12" />
+            <circle class="d-blue" cx="130" cy="205" r="14" />
+            <path class="d-blue" d="M102,255 a28,24 0 0 0 56,0 Z" />
+            <text class="d-t d-bold" x="130" y="283" text-anchor="middle">Politician</text>
+            <text class="d-s" x="130" y="303" text-anchor="middle">Q140089150</text>
+
+            <!-- fetch the sources -->
+            <path class="d-flow" d="M230,220 C280,220 282,130 326,130" />
+            <path class="d-flow" d="M316,122 L328,130 L316,138" />
+            <path class="d-flow" d="M230,260 C280,260 282,330 326,330" />
+            <path class="d-flow" d="M316,322 L328,330 L316,338" />
+
+            <!-- source: Wikipedia -->
+            <rect class="d-box" x="330" y="75" width="260" height="110" rx="12" />
+            <circle cx="368" cy="130" r="20" fill="none" class="d-stroke" stroke-width="2.5" />
+            <ellipse cx="368" cy="130" rx="9" ry="20" fill="none" class="d-stroke" stroke-width="2.5" />
+            <path class="d-stroke" stroke-width="2.5" d="M348,130 H388" />
+            <text class="d-t d-bold" x="400" y="122">Wikipedia articles</text>
+            <text class="d-s" x="400" y="148">linked language editions</text>
+
+            <!-- source: user submissions -->
+            <rect class="d-box" x="330" y="275" width="260" height="110" rx="12" />
+            <rect x="352" y="314" width="32" height="32" rx="8" fill="none" class="d-stroke" stroke-width="2.5" />
+            <path class="d-stroke" stroke-width="2.5" stroke-linecap="round" d="M360,330 H376 M368,322 V338" />
+            <text class="d-t d-bold" x="400" y="322">Submitted sources</text>
+            <text class="d-s" x="400" y="348">links you add</text>
+
+            <!-- merged into the archive -->
+            <path class="d-flow" d="M590,130 H630 M590,330 H630 M630,130 V330" />
+            <path class="d-flow" d="M630,240 H652" />
+            <path class="d-flow" d="M642,232 L654,240 L642,248" />
+
+            <!-- archived snapshot -->
+            <rect class="d-box" x="660" y="120" width="250" height="240" rx="12" />
+            <text class="d-t d-bold" x="684" y="156">Archived snapshot</text>
+            <rect x="690" y="175" width="130" height="140" fill="#fff" stroke="#dfe5ec" stroke-width="1.5" />
+            <rect class="d-line" x="702" y="190" width="106" height="6" rx="3" />
+            <rect class="d-line" x="702" y="204" width="106" height="6" rx="3" />
+            <rect class="d-hl" x="700" y="215" width="110" height="12" />
+            <rect class="d-line" x="702" y="218" width="106" height="6" rx="3" />
+            <rect class="d-line" x="702" y="232" width="106" height="6" rx="3" />
+            <rect class="d-line" x="702" y="246" width="106" height="6" rx="3" />
+            <rect class="d-hl" x="700" y="271" width="110" height="12" />
+            <rect class="d-line" x="702" y="260" width="106" height="6" rx="3" />
+            <rect class="d-line" x="702" y="274" width="106" height="6" rx="3" />
+            <rect class="d-line" x="702" y="288" width="106" height="6" rx="3" />
+            <circle class="d-blue" cx="834" cy="308" r="18" />
+            <rect x="826" y="306" width="16" height="12" rx="2.5" fill="#fff" />
+            <path d="M828,306 v-5 a6,6 0 0 1 12,0 v5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <text class="d-s" x="684" y="348">full snapshot, timestamped</text>
+
+            <text class="d-cap" x="470" y="425" text-anchor="middle">Every source is fetched and archived before anything is extracted.</text>
+          </svg>
         </section>
 
         <section>
           <h2>Machines extract</h2>
-          <ul>
-            <li class="fragment">Language model reads the archived page</li>
-            <li class="fragment">Extracts candidate facts</li>
-            <li class="fragment">
-              Every fact must come with <strong>verbatim quotes</strong> from
-              the source
-            </li>
-          </ul>
+          <svg
+            class="diagram"
+            viewBox="0 0 940 460"
+            role="img"
+            aria-label="Diagram: a language model reads the archived page and extracts candidate facts, each backed by a verbatim quote from the source"
+          >
+            <!-- archived page -->
+            <rect class="d-box" x="30" y="85" width="230" height="285" rx="12" />
+            <rect x="55" y="110" width="180" height="235" fill="#fff" stroke="#dfe5ec" stroke-width="1.5" />
+            <rect class="d-line" x="70" y="130" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="146" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="162" width="150" height="6" rx="3" />
+            <rect class="d-hl" x="67" y="173" width="156" height="15" />
+            <rect class="d-line" x="70" y="178" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="194" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="210" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="226" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="242" width="150" height="6" rx="3" />
+            <rect class="d-hl" x="67" y="253" width="156" height="15" />
+            <rect class="d-line" x="70" y="258" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="274" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="290" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="306" width="150" height="6" rx="3" />
+            <rect class="d-line" x="70" y="322" width="150" height="6" rx="3" />
+            <text class="d-s" x="145" y="362" text-anchor="middle">archived page</text>
+
+            <path class="d-flow" d="M262,228 H320" />
+            <path class="d-flow" d="M310,218 L322,228 L310,238" />
+            <text class="d-s" x="292" y="206" text-anchor="middle">reads</text>
+
+            <!-- language model -->
+            <rect class="d-box-blue" x="330" y="168" width="170" height="120" rx="12" />
+            <path class="d-blue" d="M415,184 Q420,199 435,204 Q420,209 415,224 Q410,209 395,204 Q410,199 415,184 Z" />
+            <text class="d-t d-bold" x="415" y="262" text-anchor="middle">language model</text>
+
+            <path class="d-flow" d="M502,228 H554" />
+            <path class="d-flow" d="M544,218 L556,228 L544,238" />
+            <text class="d-s" x="529" y="206" text-anchor="middle">extracts</text>
+
+            <!-- candidate facts, each with its verbatim quote -->
+            <rect class="d-box" x="560" y="85" width="350" height="150" rx="12" />
+            <text class="d-t d-bold" x="578" y="112">Member of the New Hampshire</text>
+            <text class="d-t d-bold" x="578" y="137">House of Representatives</text>
+            <rect x="764" y="141" width="122" height="21" rx="10.5" fill="#fff" class="d-stroke" stroke-width="1.2" />
+            <text class="d-code d-blue" x="825" y="155" text-anchor="middle">verbatim quote</text>
+            <rect class="d-hl" x="574" y="152" width="322" height="64" rx="5" />
+            <text class="d-quote" font-size="13.5" x="586" y="176">&#8220;She was a member of the New Hampshire House of</text>
+            <text class="d-quote" font-size="13.5" x="586" y="196">Representatives &#8230; from 2012 to 2016.&#8221;</text>
+
+            <rect class="d-box" x="560" y="255" width="350" height="150" rx="12" />
+            <text class="d-t d-bold" x="578" y="282">American politician</text>
+            <rect x="764" y="285" width="122" height="21" rx="10.5" fill="#fff" class="d-stroke" stroke-width="1.2" />
+            <text class="d-code d-blue" x="825" y="299" text-anchor="middle">verbatim quote</text>
+            <rect class="d-hl" x="574" y="296" width="322" height="64" rx="5" />
+            <text class="d-quote" font-size="13.5" x="586" y="320">&#8220;Audrey M. Stevens is an American</text>
+            <text class="d-quote" font-size="13.5" x="586" y="340">politician.&#8221;</text>
+
+            <text class="d-cap" x="470" y="437" text-anchor="middle">No quote, no fact — every candidate fact cites the source verbatim.</text>
+          </svg>
         </section>
 
         <section>
           <h2>Mapping text to Wikidata</h2>
-          <ul>
-            <li class="fragment">
-              Hybrid search (keywords + meaning) finds candidate entities
-            </li>
-            <li class="fragment">The model picks the corresponding QID</li>
-            <li class="fragment">No match, no claim</li>
-          </ul>
+          <svg
+            class="diagram"
+            viewBox="0 0 940 460"
+            role="img"
+            aria-label="Diagram: hybrid search over keywords and meaning finds candidate entities for an extracted phrase, the model picks the matching QID, and no match means no claim"
+          >
+            <!-- extracted phrase -->
+            <text class="d-s" x="150" y="168" text-anchor="middle">extracted text</text>
+            <rect class="d-box" x="30" y="185" width="240" height="90" rx="12" />
+            <text class="d-q" x="150" y="222" text-anchor="middle">&#8220;member of the</text>
+            <text class="d-q" x="150" y="248" text-anchor="middle">House of Representatives&#8221;</text>
+
+            <path class="d-flow" d="M272,230 H320" />
+            <path class="d-flow" d="M310,220 L322,230 L310,240" />
+
+            <!-- hybrid search -->
+            <rect class="d-box-blue" x="330" y="150" width="230" height="160" rx="12" />
+            <circle cx="445" cy="192" r="15" fill="none" class="d-stroke" stroke-width="3.5" />
+            <path class="d-stroke" stroke-width="4.5" stroke-linecap="round" d="M455,203 L470,218" />
+            <text class="d-t d-bold" x="445" y="252" text-anchor="middle">hybrid search</text>
+            <rect class="d-pill" x="348" y="268" width="92" height="26" rx="13" />
+            <text class="d-tag" x="394" y="286" text-anchor="middle">keywords</text>
+            <rect class="d-pill" x="450" y="268" width="88" height="26" rx="13" />
+            <text class="d-tag" x="494" y="286" text-anchor="middle">meaning</text>
+
+            <path class="d-flow" d="M562,230 H610" />
+            <path class="d-flow" d="M600,220 L612,230 L600,240" />
+
+            <!-- candidate entities; the match gets picked -->
+            <text class="d-s" x="765" y="94" text-anchor="middle">candidate entities</text>
+
+            <rect class="d-box-green" x="620" y="110" width="290" height="56" rx="12" />
+            <circle class="d-green" cx="646" cy="138" r="12" />
+            <path d="M640,138 L644.5,143 L652,132" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+            <text class="d-t2" x="668" y="134">Member of the NH House</text>
+            <text class="d-qid" x="668" y="156">Q21971205</text>
+
+            <rect class="d-box" x="620" y="178" width="290" height="56" rx="12" />
+            <circle cx="646" cy="206" r="11" fill="none" stroke="#dfe5ec" stroke-width="2" />
+            <text class="d-t2" x="668" y="202">NH House of Representatives</text>
+            <text class="d-qid" x="668" y="224">Q&#8230;</text>
+
+            <rect class="d-box" x="620" y="246" width="290" height="56" rx="12" />
+            <circle cx="646" cy="274" r="11" fill="none" stroke="#dfe5ec" stroke-width="2" />
+            <text class="d-t2" x="668" y="270">Strafford County</text>
+            <text class="d-qid" x="668" y="292">Q&#8230;</text>
+
+            <rect class="d-box-dash" x="620" y="326" width="290" height="48" rx="12" />
+            <circle class="d-red" cx="646" cy="350" r="12" />
+            <path d="M641,345 L651,355 M651,345 L641,355" stroke="#fff" stroke-width="2.8" stroke-linecap="round" />
+            <text class="d-t" x="668" y="356">No match, no claim</text>
+
+            <text class="d-cap" x="470" y="425" text-anchor="middle">The model picks the QID that matches the fact.</text>
+          </svg>
         </section>
 
         <section>
           <h2>Humans decide</h2>
+          <svg
+            class="diagram"
+            viewBox="0 0 940 460"
+            role="img"
+            aria-label="Diagram: a person compares a candidate fact with the quoted source passages and accepts or rejects it; confirmed facts go to Wikidata under their own account"
+          >
+            <!-- you -->
+            <circle class="d-cta" cx="95" cy="170" r="17" />
+            <path class="d-cta" d="M63,232 a32,27 0 0 0 64,0 Z" />
+            <text class="d-t d-bold" x="95" y="262" text-anchor="middle">you</text>
+            <path class="d-flow" d="M134,205 H164" />
+            <path class="d-flow" d="M154,197 L166,205 L154,213" />
+
+            <!-- the claim, with its evidence -->
+            <rect class="d-box" x="170" y="55" width="460" height="300" rx="12" />
+            <text class="d-t d-bold" x="192" y="90">Member of the New Hampshire House of</text>
+            <text class="d-t d-bold" x="192" y="115">Representatives</text>
+            <text class="d-qid" x="192" y="142">Q21971205 &#183; 2012 &#8211; 2016</text>
+            <text class="d-src" x="192" y="168">en.wikipedia.org/wiki/Audrey_Stevens</text>
+
+            <rect class="d-hl" x="186" y="182" width="428" height="42" rx="5" />
+            <text class="d-quote" font-size="13.5" x="198" y="200">1. &#8220;American politician Audrey Stevens Member of New</text>
+            <text class="d-quote" font-size="13.5" x="198" y="218">Hampshire House of Representatives for Strafford 7&#8221;</text>
+
+            <rect class="d-hl" x="186" y="232" width="428" height="42" rx="5" />
+            <text class="d-quote" font-size="13.5" x="198" y="250">2. &#8220;She was a member of the New Hampshire House of</text>
+            <text class="d-quote" font-size="13.5" x="198" y="268">Representatives and represented Strafford 7th district&#8221;</text>
+
+            <rect class="d-green" x="186" y="298" width="130" height="38" rx="8" />
+            <path d="M204,317 L210,323 L220,311" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <text class="d-btn" x="232" y="322">Accept</text>
+            <rect class="d-red" x="330" y="298" width="130" height="38" rx="8" />
+            <path d="M348,311 L358,323 M358,311 L348,323" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+            <text class="d-btn" x="372" y="322">Reject</text>
+
+            <!-- outcomes -->
+            <path class="d-flow-green" d="M632,130 H692" />
+            <path class="d-flow-green" d="M682,122 L694,130 L682,138" />
+            <text class="d-lblgreen" x="663" y="112" text-anchor="middle">confirmed</text>
+
+            <rect class="d-box-green" x="700" y="70" width="210" height="120" rx="12" />
+            <rect x="779" y="100" width="7" height="16" fill="#006699" />
+            <rect x="791" y="92" width="7" height="24" fill="#339966" />
+            <rect x="803" y="84" width="7" height="32" fill="#990000" />
+            <rect x="815" y="92" width="7" height="24" fill="#339966" />
+            <rect x="827" y="100" width="7" height="16" fill="#006699" />
+            <text class="d-t d-bold" x="805" y="148" text-anchor="middle">Wikidata</text>
+            <text class="d-s" x="805" y="172" text-anchor="middle">under your account</text>
+
+            <path class="d-flow-gray" d="M632,317 H692" />
+            <path class="d-flow-gray" d="M682,309 L694,317 L682,325" />
+            <text class="d-lblgray" x="663" y="299" text-anchor="middle">rejected</text>
+
+            <rect class="d-box-dash" x="700" y="282" width="210" height="70" rx="12" />
+            <circle class="d-red" cx="728" cy="317" r="11" />
+            <path d="M723,312 L733,322 M733,312 L723,322" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <text class="d-t" x="748" y="323">claim discarded</text>
+
+            <text class="d-cap" x="470" y="415" text-anchor="middle">You check the claim against the source — then decide.</text>
+          </svg>
         </section>
 
         <section>
