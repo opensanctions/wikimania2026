@@ -180,6 +180,29 @@
     margin: 0.2em 0 0;
 }
 
+/* ---------- quote slides (story time) ---------- */
+
+/* One big pull quote per slide; <mark> highlights the core issue, in the
+   same yellow as the verbatim-quote highlights in the diagrams. */
+.reveal .quote-slide blockquote {
+    width: 100%;
+    margin: 0;
+    padding: 0 0 0 0.8em;
+    border-left: 0.18em solid var(--ep-primary);
+    background: none;
+    box-shadow: none;
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.45;
+}
+
+.reveal .quote-slide mark {
+    background: #ffe58f;
+    color: inherit;
+    padding: 0 0.1em;
+    font-weight: 700;
+}
+
 /* ---------- live poll slides ---------- */
 
 /* Two-column layout: question and bars left, QR right — all in normal
